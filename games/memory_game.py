@@ -1,5 +1,5 @@
 import random
-import app
+from utilities.utils import clear_screen, gett_int
 import time
 
 
@@ -12,10 +12,10 @@ def generate_sequence(difficulty):
         u = i + 1
         print(f'Beginning in {u}')
         time.sleep(1)
-        app.clear_screen()
+        clear_screen()
     print(*rand_list)
     time.sleep(0.7)
-    app.clear_screen()
+    clear_screen()
     return rand_list
 
 
@@ -27,7 +27,7 @@ def get_list_from_user(difficulty):
             print(f'Please enter the {list_number[i]} number: ', end='')
         else:
             print(f'Please enter the number: ', end='')
-        n = app.gett_int(limit_a=0, limit_b=102)
+        n = gett_int(limit_a=0, limit_b=102)
         user_list.append(n)
     return user_list
 

@@ -1,6 +1,6 @@
-import os
 import time
 from games import guess_game, memory_game, currency_roulette_game
+from utilities.utils import gett_int, clear_screen, show_result
 
 
 def welcome():
@@ -21,44 +21,8 @@ def start_play():
     time.sleep(2)
     clear_screen()
     if game_type == 1:
-        show_result(memory_game.play(difficulty))
+        show_result(memory_game.play(difficulty), difficulty)
     elif game_type == 2:
-        show_result(guess_game.play(difficulty))
+        show_result(guess_game.play(difficulty), difficulty)
     elif game_type == 3:
-        show_result(currency_roulette_game.play(difficulty))
-
-
-def gett_int(limit_b, limit_a=1):
-    while True:
-        num = input()
-        if str.isdigit(num):
-            if limit_a <= int(num) <= limit_b:
-                break
-            else:
-                print('Option Not available, please try again: ', end='')
-        else:
-            print('Option Not available, please try again: ', end='')
-    return int(num)
-
-
-def is_float(string):
-    if string.replace(".", "").isnumeric() and string.count(".") <= 1:
-        return True
-    else:
-        return False
-
-
-def clear_screen():
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        os.system('clear')
-
-
-def show_result(result):
-    if result:
-        clear_screen()
-        print('Congratulations, You Win!')
-    else:
-        clear_screen()
-        print('Sorry, unfortunately You lost :( \nTry next time!')
+        show_result(currency_roulette_game.play(difficulty), difficulty)

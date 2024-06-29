@@ -1,5 +1,5 @@
 import random
-import app
+from utilities.utils import gett_int
 
 
 def generate_number(difficulty):
@@ -9,7 +9,7 @@ def generate_number(difficulty):
 
 def get_guess_from_user(difficulty, ran_num):
     print(f'Please guess a number between 0 - {difficulty}: ', end="")
-    guessed_num = app.gett_int(limit_a=0, limit_b=difficulty)
+    guessed_num = gett_int(limit_a=0, limit_b=difficulty)
     return guessed_num, ran_num
 
 

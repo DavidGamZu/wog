@@ -1,5 +1,5 @@
 import random
-import app
+from utilities.utils import is_float
 from currency_converter import CurrencyConverter
 
 
@@ -15,7 +15,7 @@ def get_guess_from_user(random_dollar):
     print(f"Please enter the your guess for the converted value of {random_dollar}USD:\nyour Answer: ", end='')
     while True:
         user_float = input()
-        if app.is_float(user_float):
+        if is_float(user_float):
             return float(user_float)
         else:
             print('Wrong value!\nPlease enter a valid value: ', end='')
