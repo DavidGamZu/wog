@@ -11,13 +11,22 @@ def test_scores_service():
 
     service = Service(ChromeDriverManager().install(), options=chrome_options)
     driver_chrome = webdriver.Chrome(service=service)
-
-    driver_chrome.get("http://127.0.0.1:8777/")
-    score = driver_chrome.find_element(By.ID, "score")
-    if 0 <= int(score.text) <= 1000:
-        driver_chrome.quit()
-        return True
-    else:
+    try:
+        driver_chrome.get("http://127.0.0.1:8777/")
+        score = driver_chrome.find_element(By.ID, "score")
+        h1_title = driver_chrome.find_element(By.TAG_NAME, 'h1')
+        if h1_title.text == 'ERROR:':
+            print("True")
+            driver_chrome.quit()
+            return False
+        elif 1 <= int(score.text) <= 1000:
+            driver_chrome.quit()
+            return True
+        else:
+            driver_chrome.quit()
+            return False
+    except Exception as error:
+        print(f"An unexpected error occurred: {error}")
         driver_chrome.quit()
         return False
 
