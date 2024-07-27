@@ -16,7 +16,6 @@ def test_scores_service():
         score = driver_chrome.find_element(By.ID, "score")
         h1_title = driver_chrome.find_element(By.TAG_NAME, 'h1')
         if h1_title.text == 'ERROR:':
-            print("True")
             driver_chrome.quit()
             return False
         elif 1 <= int(score.text) <= 1000:
