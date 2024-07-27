@@ -1,5 +1,5 @@
 import random
-from utilities.utils import clear_screen, gett_int
+from utils import clear_screen, gett_int
 import time
 
 

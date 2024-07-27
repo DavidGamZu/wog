@@ -1,6 +1,6 @@
 import time
 from games import guess_game, memory_game, currency_roulette_game
-from utilities.utils import gett_int, clear_screen, show_result
+from utils import gett_int, clear_screen, show_result
 
 
 def welcome():

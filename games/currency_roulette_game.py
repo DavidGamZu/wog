@@ -1,5 +1,5 @@
 import random
-from utilities.utils import is_float
+from utils import is_float
 from currency_converter import CurrencyConverter
 
 

@@ -1,5 +1,5 @@
 import random
-from utilities.utils import gett_int
+from utils import gett_int
 
 
 def generate_number(difficulty):

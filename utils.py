@@ -1,6 +1,6 @@
 import os
-from utilities.score import add_score
-score_file_name = 'utilities/Scores.txt'
+from score import add_score
+score_file_name = 'Scores.txt'
 bad_return_code = 404
 
 

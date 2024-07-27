@@ -1,0 +1,10 @@
+services:
+  flask-app:
+    image: wog:v1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8777:5050"
+    volumes:
+      - "./Scores.txt:/Scores.txt"
