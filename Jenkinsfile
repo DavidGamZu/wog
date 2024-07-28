@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         IMAGE_NAME = 'davidgamz/wog'
-        IMAGE_TAG = 'latest'
+        IMAGE_TAG = 'v1.0'
     }
     stages {
         stage('Clean UP') {
@@ -19,19 +19,19 @@ pipeline {
             steps {
                 script {
                     def versionsFile = 'wog/version.txt'
-                    
+
                     // Read the current build number
                     def currentBuildNumber = 0
                     if (fileExists(versionsFile)) {
                         currentBuildNumber = readFile(versionsFile).trim().toInteger()
                     }
-                    
+
                     // Increment the build number
                     def newBuildNumber = currentBuildNumber + 1
-                    
+
                     // Write the new build number back to the file
                     writeFile file: versionsFile, text: "${newBuildNumber}"
-                    
+
                     // Set the new build number as an environment variable for use in Docker tag
                     env.BUILD_NUMBER = newBuildNumber.toString()
                 }
@@ -40,7 +40,12 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 dir('wog') {
-                    sh "pip3 install -r requirements.txt"
+                    // Create and activate a virtual environment
+                    sh '''
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install -r requirements.txt
+                    '''
                 }
             }
         }
@@ -55,8 +60,11 @@ pipeline {
         }
         stage('E2E') {
             steps {
-                dir('test') {
-                    sh "python e2e.py"
+                dir('wog/test') {
+                    sh '''
+                    . ../venv/bin/activate
+                    python e2e.py
+                    '''
                 }
             }
         }
@@ -71,7 +79,7 @@ pipeline {
             steps {
                 script {
                     def imageTag = "${env.BUILD_NUMBER}"
-                    
+
                     // Tag and push the Docker image with the new build number
                     sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:${imageTag}"
                     sh "docker push ${IMAGE_NAME}:${imageTag}"
@@ -80,4 +88,3 @@ pipeline {
         }
     }
 }
-
